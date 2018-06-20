@@ -1,14 +1,5 @@
 
-# coding: utf-8
-
-# In[53]:
-
-
 import requests
-
-
-# In[54]:
-
 
 headers = {
     'cookie': '_zap=00a8829f-c446-4bfe-9b95-81b6f08f5f36; d_c0="ADBvbENHjQ2PTlUPL2a6I2HJvXcCxAPdFvc=|1525599330"; capsion_ticket="2|1:0|10:1526219875|14:capsion_ticket|44:ZWM1YWY4ZDg4ZDBjNDQxMjk0OTEyY2YxNTVmZjFhOTU=|f5345badbf1721d879be31b6f88fe1bc77ba99c2e1cf9116fe4393351ec14dd3"; z_c0="2|1:0|10:1526219903|4:z_c0|92:Mi4xLU0xTkFBQUFBQUFBTUc5c1EwZU5EU1lBQUFCZ0FsVk5mNUxsV3dDMjRfUk1ETFBXcUdMQVNId0Vpei13NXZuLWZB|bd8b5b718c19c960f5271376c2c4ca49ede08813f83c6284344ec774799428fe"; q_c1=bc2de00cdd2643349f97f9879d3fe71b|1526219903000|1526219903000; _xsrf=f32972b1-47c3-4327-bbf2-7dccda67a319; tgw_l7_route=931b604f0432b1e60014973b6cd4c7bc; anc_cap_id=37859397271a46e3af560a4d1e15b27e',
@@ -33,10 +24,6 @@ response = requests.get(url, headers=headers, params=params)
 
 j = response.json()
 
-
-# In[55]:
-
-
 answerlist = []
 while j['paging']['is_end'] == False:
     for answer in j['data']:
@@ -48,21 +35,9 @@ else:
     for answer in j['data']:
         answerlist.append(answer['id'])
 
-
-# In[56]:
-
-
 answerlist
 
-
-# In[57]:
-
-
 len(answerlist)
-
-
-# In[58]:
-
 
 commentlist = []
 for answer in answerlist:
@@ -91,25 +66,15 @@ for answer in answerlist:
     'offset': '0',
     'status': 'open',}
 
-
-# In[59]:
-
-
 params = {
     'include': 'data[*].comment_count,suggest_edit,is_normal,thumbnail_extra_info,thumbnail,can_comment,comment_permission,admin_closed_comment,content,voteup_count,created,updated,upvoted_followees,voting,review_info;data[*].author.badge[?(type=best_answerer)].topics',
     'offset': '0',
     'limit': '20',
     'sort_by': 'created',
 }
-
-
 url = 'https://www.zhihu.com/api/v4/members/hidecloud/articles'
 response = requests.get(url, headers=headers, params=params)
 q = response.json()
-
-
-# In[60]:
-
 
 articlelist = []
 while q['paging']['is_end'] == False:
@@ -122,21 +87,9 @@ else:
     for article in q['data']:
         articlelist.append(article['id'])
 
-
-# In[61]:
-
-
 articlelist
 
-
-# In[62]:
-
-
 len(artilcelist)
-
-
-# In[63]:
-
 
 params = {
     'include': 'data[*].author,collapsed,reply_to_author,disliked,content,voting,vote_count,is_parent_author,is_author',
@@ -145,10 +98,6 @@ params = {
     'offset': '0',
     'status': 'open',
 }
-
-
-# In[64]:
-
 
 commentlist = []
 for article in artilcelist:
@@ -172,36 +121,18 @@ for article in artilcelist:
         for comment in u['data']:
             commentlist.append(comment['author']['member']['url_token'])
         
-
-
-# In[65]:
-
-
 commentlist
 
-
-# In[66]:
-
-
 len(commentlist)
-
-
-# In[67]:
-
 
 params = {
     'offset': '0',
     'limit': '15',
     'includes': 'data[*].upvoted_followees,admin_closed_comment',
 }
-
 url = 'https://www.zhihu.com/api/v4/members/hidecloud/pins'
 response = requests.get(url, headers=headers, params=params)
 j = response.json()
-
-
-# In[68]:
-
 
 pinlist = []
 while j['paging']['is_end'] == False:
@@ -214,21 +145,9 @@ else:
     for pin in j['data']:
           pinlist.append(pin['id'])
 
-
-# In[69]:
-
-
 pinlist
 
-
-# In[70]:
-
-
 len(pinlist)
-
-
-# In[71]:
-
 
 params = {
     'include': 'data[*].author,collapsed,reply_to_author,disliked,content,voting,vote_count,is_parent_author,is_author',
@@ -237,10 +156,6 @@ params = {
     'offset': '0',
     'status': 'open',
 }
-
-
-# In[72]:
-
 
 commentlist = []
 for pin in pinlist:
@@ -264,21 +179,9 @@ for pin in pinlist:
         for comment in j['data']:
             commentlist.append(comment['author']['member']['url_token'])
 
-
-# In[73]:
-
-
 commentlist
 
-
-# In[74]:
-
-
 len(commentlist)
-
-
-# In[75]:
-
 
 params = {
     'include': 'data[*].column.intro,followers,articles_count',
@@ -289,10 +192,6 @@ params = {
 url = 'https://www.zhihu.com/api/v4/members/hidecloud/column-contributions'
 response = requests.get(url, headers=headers, params=params)
 j = response.json()
-
-
-# In[76]:
-
 
 columnlist = []
 while j['paging']['is_end'] == False:
@@ -305,24 +204,8 @@ else:
     for column in j['data']:
           columnlist.append(column['column']['id'])
 
-
-# In[77]:
-
-
 columnlist
-
-
-# In[409]:
-
-
-# params = {
-    'include': 'data[*].admin_closed_comment,comment_count,suggest_edit,is_title_image_full_screen,can_comment,upvoted_followees,can_open_tipjar,can_tip,voteup_count,voting,topics,review_info,author.is_following',
-}   
-
-
-# In[78]:
-
-
+ 
 articlelist = []
 for column in columnlist:
     params = {
@@ -341,21 +224,9 @@ for column in columnlist:
          for article in j ['data']:
             articlelist.append(article['id'])
 
-
-# In[79]:
-
-
 articlelist
 
-
-# In[80]:
-
-
 len(articlelist)
-
-
-# In[81]:
-
 
 commentlist = []
 for article in articlelist:
@@ -379,10 +250,6 @@ for article in articlelist:
          for comment in j ['data']:
             print(comment['author']['member']['url_token'])
 
-
-# In[82]:
-
-
 params = {
     'include': 'data[*].answer_count,articles_count,gender,follower_count,is_followed,is_following,badge[?(type=best_answerer)].topics',
     'offset': '0',
@@ -392,10 +259,6 @@ params = {
 url = 'https://www.zhihu.com/api/v4/members/hidecloud/followers'
 response = requests.get(url, headers=headers, params=params)
 j = response.json()
-
-
-# In[46]:
-
 
 followerlist = []
 while j['paging']['is_end'] == False:
