@@ -1,74 +1,32 @@
 
 # coding: utf-8
 
-# In[3]:
-
-
-# coding: utf-8
-
-
-# In[4]:
-
-
 from bs4 import BeautifulSoup
 
-
-# In[5]:
-
-
 import urllib.request
-
-
-# In[6]:
-
-
 resp=urllib.request.urlopen('https://www.douban.com/explore/')
 content=resp.read()
 soup = BeautifulSoup(content,'html.parser')
-
-
-# In[7]:
-
 
 lis = soup.find("ul", class_="side-columns").find_all('li')
 columnslist = []
 for li in lis:
     columnslist.append(li.a['href'])
 
-
-# In[8]:
-
-
 columnslist
-
-
-# In[9]:
-
 
 resp=urllib.request.urlopen('https://www.douban.com/explore/column/5')
 content=resp.read()
 soup = BeautifulSoup(content,'html.parser')
-
-
-# In[10]:
-
 
 articles = soup.find_all("div",class_="title")
 articlelist = []
 for article in articles:
     print(article.a['href'])
 
-
-# In[148]:
-
-
 resp=urllib.request.urlopen('https://www.douban.com/note/622891788/')
 content=resp.read()
 soup = BeautifulSoup(content,'html.parser')
-
-
-# In[149]:
-
 
 comments = soup.select('div[class="content report-comment"]')
 for comment in comments:
